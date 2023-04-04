@@ -1,0 +1,17 @@
+[package]
+name = "cargo-ghannotate"
+version = "1.0.0"
+authors = ["Dragonink (https://github.com/Dragonink)"]
+description = "Tool to annotate GitHub Actions from the output of Cargo commands"
+readme = "README.md"
+repository = "https://github.com/Dragonink/cargo-ghannotate"
+edition = "2021"
+
+[dependencies]
+serde_json = "1"
+[dependencies.clap]
+version = "4"
+features = ["derive", "env"]
+[dependencies.serde]
+version = "1"
+features = ["derive"]
