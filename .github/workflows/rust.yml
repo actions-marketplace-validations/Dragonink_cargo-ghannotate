@@ -1,0 +1,31 @@
+name: Rust Test Suite
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+
+  lint:
+    name: Lint Rust code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: clippy
+      - name: Lint Rust code with clippy
+        uses: Dragonink/cargo-ghannotate@master
+        with:
+          command: clippy --workspace --all-targets --all-features
