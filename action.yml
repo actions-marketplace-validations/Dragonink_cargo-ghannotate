@@ -1,0 +1,25 @@
+name: Run and annotate Cargo command
+author: Dragonink
+description: Installs `cargo-ghannotate` and runs the specified Cargo command through it
+branding:
+  icon: check-circle
+  color: orange
+inputs:
+  command:
+    description: Cargo command to run
+    required: true
+  allow-warnings:
+    description: Allow the job to succeed if there are warnings
+    required: false
+    default: false
+runs:
+  using: composite
+  steps:
+    - run: cargo install --git https://github.com/Dragonink/cargo-ghannotate
+      shell: bash
+    - run: cargo ghannotate ${{ inputs.command }}
+      shell: bash
+      if: ${{ !inputs.allow-warnings }}
+    - run: cargo ghannotate --allow-warnings ${{ inputs.command }}
+      shell: bash
+      if: ${{ inputs.allow-warnings }}
