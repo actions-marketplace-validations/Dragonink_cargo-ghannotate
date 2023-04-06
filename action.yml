@@ -11,7 +11,7 @@ inputs:
   allow-warnings:
     description: Allow the job to succeed if there are warnings
     required: false
-    default: false
+    default: 'false'
 runs:
   using: composite
   steps:
@@ -19,7 +19,7 @@ runs:
       shell: bash
     - run: cargo ghannotate ${{ inputs.command }}
       shell: bash
-      if: ${{ !inputs.allow-warnings }}
+      if: ${{ inputs.allow-warnings == 'false' }}
     - run: cargo ghannotate --allow-warnings ${{ inputs.command }}
       shell: bash
-      if: ${{ inputs.allow-warnings }}
+      if: ${{ inputs.allow-warnings != 'false' }}
